@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserDataTapGestureRecognizer: UITapGestureRecognizer
+@interface UserDataTapGestureRecognizer: UILongPressGestureRecognizer
 
 @property( nonatomic, strong) NSDictionary* holder;
 

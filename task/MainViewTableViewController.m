@@ -23,6 +23,8 @@
     NSMutableArray* cats;
     NSURLConnection* getCatsProductsConnection;
     NSIndexPath* expandedIndex;
+    CGRect origianlRect;
+    UIScrollView* parent;
 }
 
 - (void)viewDidLoad {
@@ -133,15 +135,24 @@
     for(int i = 0 ; i < links.count ; i++)
     {
         NSDictionary* dict = [links objectAtIndex:i];
-        UserDataTapGestureRecognizer *tapGestureRecognizer = [[UserDataTapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapFrom:)];
+        /*UserDataTapGestureRecognizer *tapGestureRecognizer = [[UserDataTapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapFrom:)];
         [tapGestureRecognizer setHolder:dict];
         
+        UILongPressGestureRecognizer *mouseDrag = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleDrag:)];
+        mouseDrag.numberOfTapsRequired=1;
+        mouseDrag.minimumPressDuration=0.05;
+        
+        [tapGestureRecognizer requireGestureRecognizerToFail:mouseDrag];*/
+        
+        UserDataTapGestureRecognizer *longPress = [[UserDataTapGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleDrag:)];
+        [longPress setHolder:dict];
         NSURL* imageToDownload = [NSURL URLWithString:[dict objectForKey:@"prodImage"]];
         
         UIImageView *imageView = [[UIImageView alloc] init];
         [imageView setImageWithURL:imageToDownload];
         [imageView setUserInteractionEnabled:YES];
-        [imageView addGestureRecognizer:tapGestureRecognizer];
+        [imageView addGestureRecognizer:longPress];
         
         CGRect rect = imageView.frame;
         rect.size.height = 40;
@@ -289,4 +300,26 @@
     [[touch view] setCenter:[touch locationInView:self.view]];
 }
 
-@end
+
+- (void)handleDrag:(UILongPressGestureRecognizer *)recognizer
+{
+    CGPoint location = [recognizer locationInView:self.view];
+
+    NSLog(@"%f -- %f",location.x,location.y);
+        if(recognizer.state == UIGestureRecognizerStateBegan)
+            //NSLog(@"handleLongPress: StateBegan");
+        {
+            origianlRect = [[recognizer view]frame];
+            parent = (UIScrollView*)[[recognizer view]superview];
+        }else if(recognizer.state == UIGestureRecognizerStateChanged)
+        {
+            [self.view bringSubviewToFront:[recognizer view]];
+            CGRect origFrame = recognizer.view.frame;
+            origFrame.origin.y = location.y-100 - (expandedIndex.row*44);
+            origFrame.origin.x = location.x-30;
+            [recognizer.view setFrame:origFrame];
+        }else if (recognizer.state == UIGestureRecognizerStateEnded)
+        {
+            [[recognizer view]setFrame:origianlRect];
+        }
+}@end
