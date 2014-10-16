@@ -13,6 +13,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="eQ2-rj-IOF">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="catCell" id="faU-qW-agS">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -44,6 +49,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="fkc-dT-ThI"/>
+                    <connections>
+                        <outlet property="addView" destination="eQ2-rj-IOF" id="kJY-EY-Spb"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VSj-yT-G4E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

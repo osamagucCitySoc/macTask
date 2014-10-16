@@ -9,6 +9,7 @@
 #import "MainViewTableViewController.h"
 #import "UIView+RNActivityView.h"
 #import "UIImageView+WebCache.h"
+#import "UserDataTapGestureRecognizer.h"
 
 @interface MainViewTableViewController ()<NSURLConnectionDataDelegate,NSURLConnectionDelegate>
 
@@ -16,6 +17,7 @@
 
 @implementation MainViewTableViewController
 {
+    __weak IBOutlet UIView *addView;
     NSMutableData* accumlatedData;
     NSMutableArray* productsWithCats;
     NSMutableArray* cats;
@@ -97,7 +99,7 @@
     UIScrollView* scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(8, 40, 320, 45)];
     scrollView.tag = 4;
     scrollView.delegate = self;
-    
+    [scrollView setUserInteractionEnabled:YES];
     [scrollView setBackgroundColor:[UIColor clearColor]];
     [scrollView setCanCancelContentTouches:NO];
     
@@ -113,13 +115,15 @@
     {
         if([[dict objectForKey:@"catName"]isEqualToString:[currentCat objectForKey:@"catName"]])
         {
-            [links addObject:[dict objectForKey:@"prodImage"]];
-            [links addObject:[dict objectForKey:@"prodImage"]];
-            [links addObject:[dict objectForKey:@"prodImage"]];
-            [links addObject:[dict objectForKey:@"prodImage"]];
-            [links addObject:[dict objectForKey:@"prodImage"]];
-            [links addObject:[dict objectForKey:@"prodImage"]];
-            [links addObject:[dict objectForKey:@"prodImage"]];
+            [links addObject:dict];
+            [links addObject:dict];
+            [links addObject:dict];
+            [links addObject:dict];
+            [links addObject:dict];
+            [links addObject:dict];
+            [links addObject:dict];
+            [links addObject:dict];
+            [links addObject:dict];
         }
     }
     
@@ -128,11 +132,17 @@
     
     for(int i = 0 ; i < links.count ; i++)
     {
-        NSURL* imageToDownload = [NSURL URLWithString:[links objectAtIndex:i]];
+        NSDictionary* dict = [links objectAtIndex:i];
+        UserDataTapGestureRecognizer *tapGestureRecognizer = [[UserDataTapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapFrom:)];
+        [tapGestureRecognizer setHolder:dict];
+        
+        NSURL* imageToDownload = [NSURL URLWithString:[dict objectForKey:@"prodImage"]];
         
         UIImageView *imageView = [[UIImageView alloc] init];
         [imageView setImageWithURL:imageToDownload];
         [imageView setUserInteractionEnabled:YES];
+        [imageView addGestureRecognizer:tapGestureRecognizer];
+        
         CGRect rect = imageView.frame;
         rect.size.height = 40;
         rect.size.width = 40;
@@ -140,7 +150,7 @@
         rect.origin.y = 0;
         
         imageView.frame = rect;
-        
+        imageView.tag = 1000;
         [scrollView addSubview:imageView];
         
         cx += imageView.frame.size.width+5;
@@ -176,7 +186,13 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    expandedIndex = indexPath;
+    if(expandedIndex && expandedIndex == indexPath)
+    {
+        expandedIndex = nil;
+    }else
+    {
+        expandedIndex = indexPath;
+    }
     [self.tableView beginUpdates];
     [self.tableView reloadData];
 //    [self.tableView setNeedsDisplay];
@@ -256,6 +272,21 @@
             [self.tableView setNeedsDisplay];
         });
     }
+}
+
+
+#pragma mark touch delegate
+- (void) handleTapFrom: (UserDataTapGestureRecognizer *)recognizer
+{
+    NSLog(@"%@",[recognizer holder]);
+}
+
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    
+    [[touch view] setCenter:[touch locationInView:self.view]];
 }
 
 @end
