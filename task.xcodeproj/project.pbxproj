@@ -14,6 +14,7 @@
 		048BC26919F00277007563C8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048BC26819F00277007563C8 /* Images.xcassets */; };
 		048BC26C19F00277007563C8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048BC26A19F00277007563C8 /* LaunchScreen.xib */; };
 		048BC27819F00277007563C8 /* taskTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 048BC27719F00277007563C8 /* taskTests.m */; };
+		048BC28319F008C6007563C8 /* MainViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048BC28219F008C6007563C8 /* MainViewTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		048BC27119F00277007563C8 /* taskTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = taskTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		048BC27619F00277007563C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		048BC27719F00277007563C8 /* taskTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = taskTests.m; sourceTree = "<group>"; };
+		048BC28119F008C6007563C8 /* MainViewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewTableViewController.h; sourceTree = "<group>"; };
+		048BC28219F008C6007563C8 /* MainViewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,8 @@
 				048BC26819F00277007563C8 /* Images.xcassets */,
 				048BC26A19F00277007563C8 /* LaunchScreen.xib */,
 				048BC25B19F00276007563C8 /* Supporting Files */,
+				048BC28119F008C6007563C8 /* MainViewTableViewController.h */,
+				048BC28219F008C6007563C8 /* MainViewTableViewController.m */,
 			);
 			path = task;
 			sourceTree = "<group>";
@@ -222,6 +227,7 @@
 				048BC26419F00276007563C8 /* ViewController.m in Sources */,
 				048BC26119F00276007563C8 /* AppDelegate.m in Sources */,
 				048BC25E19F00276007563C8 /* main.m in Sources */,
+				048BC28319F008C6007563C8 /* MainViewTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
