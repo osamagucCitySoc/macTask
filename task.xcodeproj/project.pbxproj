@@ -15,6 +15,8 @@
 		048BC26C19F00277007563C8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048BC26A19F00277007563C8 /* LaunchScreen.xib */; };
 		048BC27819F00277007563C8 /* taskTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 048BC27719F00277007563C8 /* taskTests.m */; };
 		048BC28319F008C6007563C8 /* MainViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048BC28219F008C6007563C8 /* MainViewTableViewController.m */; };
+		048BC28819F00962007563C8 /* RNActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048BC28519F00962007563C8 /* RNActivityView.m */; };
+		048BC28919F00962007563C8 /* UIView+RNActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048BC28719F00962007563C8 /* UIView+RNActivityView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +45,10 @@
 		048BC27719F00277007563C8 /* taskTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = taskTests.m; sourceTree = "<group>"; };
 		048BC28119F008C6007563C8 /* MainViewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewTableViewController.h; sourceTree = "<group>"; };
 		048BC28219F008C6007563C8 /* MainViewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewTableViewController.m; sourceTree = "<group>"; };
+		048BC28419F00962007563C8 /* RNActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNActivityView.h; sourceTree = "<group>"; };
+		048BC28519F00962007563C8 /* RNActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNActivityView.m; sourceTree = "<group>"; };
+		048BC28619F00962007563C8 /* UIView+RNActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RNActivityView.h"; sourceTree = "<group>"; };
+		048BC28719F00962007563C8 /* UIView+RNActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RNActivityView.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,10 @@
 		048BC25B19F00276007563C8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				048BC28419F00962007563C8 /* RNActivityView.h */,
+				048BC28519F00962007563C8 /* RNActivityView.m */,
+				048BC28619F00962007563C8 /* UIView+RNActivityView.h */,
+				048BC28719F00962007563C8 /* UIView+RNActivityView.m */,
 				048BC25C19F00276007563C8 /* Info.plist */,
 				048BC25D19F00276007563C8 /* main.m */,
 			);
@@ -224,8 +234,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				048BC28919F00962007563C8 /* UIView+RNActivityView.m in Sources */,
 				048BC26419F00276007563C8 /* ViewController.m in Sources */,
 				048BC26119F00276007563C8 /* AppDelegate.m in Sources */,
+				048BC28819F00962007563C8 /* RNActivityView.m in Sources */,
 				048BC25E19F00276007563C8 /* main.m in Sources */,
 				048BC28319F008C6007563C8 /* MainViewTableViewController.m in Sources */,
 			);
@@ -303,7 +315,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -338,7 +350,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -350,6 +362,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = task/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -360,6 +373,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = task/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
