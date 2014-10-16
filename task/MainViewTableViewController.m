@@ -18,9 +18,11 @@
 @implementation MainViewTableViewController
 {
     __weak IBOutlet UIView *addView;
+    __weak IBOutlet UILabel *totalLabel;
     NSMutableData* accumlatedData;
     NSMutableArray* productsWithCats;
     NSMutableArray* cats;
+    NSMutableArray* added;
     NSURLConnection* getCatsProductsConnection;
     NSIndexPath* expandedIndex;
     CGRect origianlRect;
@@ -30,8 +32,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setTitle:@"Categories & Products"];
+    [self.tableView sendSubviewToBack:addView];
+    [self.view sendSubviewToBack:addView];
     
+    [self setTitle:@"Categories & Products"];
+
     [self loadCategoriesAndProducts];
 }
 
@@ -98,7 +103,7 @@
     
     [[cell viewWithTag:4]removeFromSuperview];
     
-    UIScrollView* scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(8, 40, 320, 45)];
+    UIScrollView* scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(8, 40, self.tableView.frame.size.width, 45)];
     scrollView.tag = 4;
     scrollView.delegate = self;
     [scrollView setUserInteractionEnabled:YES];
@@ -108,7 +113,6 @@
     scrollView.indicatorStyle = UIScrollViewIndicatorStyleBlack;
     scrollView.clipsToBounds = NO;
     scrollView.scrollEnabled = YES;
-    scrollView.pagingEnabled = YES;
     
     
     NSMutableArray* links = [[NSMutableArray alloc]init];
@@ -275,7 +279,7 @@
                                                                 error:&error];
         cats = [loadedCats objectForKey:@"cats"];
         productsWithCats = [loadedCats objectForKey:@"products"];
-        
+        added = [[NSMutableArray alloc]init];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.navigationController.view hideActivityViewWithAfterDelay:0];
@@ -301,11 +305,13 @@
 }
 
 
-- (void)handleDrag:(UILongPressGestureRecognizer *)recognizer
+- (void)handleDrag:(UserDataTapGestureRecognizer *)recognizer
 {
     CGPoint location = [recognizer locationInView:self.view];
 
     NSLog(@"%f -- %f",location.x,location.y);
+    //location.y = location.y-100 - (expandedIndex.row*44);
+    //alocation.x-=30;
         if(recognizer.state == UIGestureRecognizerStateBegan)
             //NSLog(@"handleLongPress: StateBegan");
         {
@@ -316,10 +322,25 @@
             [self.view bringSubviewToFront:[recognizer view]];
             CGRect origFrame = recognizer.view.frame;
             origFrame.origin.y = location.y-100 - (expandedIndex.row*44);
-            origFrame.origin.x = location.x-30;
+           // origFrame.origin.x = location.x-30;
             [recognizer.view setFrame:origFrame];
         }else if (recognizer.state == UIGestureRecognizerStateEnded)
         {
             [[recognizer view]setFrame:origianlRect];
+            
+
+            if(location.y >= addView.frame.origin.y && location.y <= addView.frame.origin.y+addView.frame.size.height)
+            {
+                [added addObject:[recognizer holder]];
+                float price = 0;
+                for(NSDictionary* dict in added)
+                {
+                    price += [[dict objectForKey:@"prodPrice"] floatValue];
+                }
+                totalLabel.text = [NSString stringWithFormat:@"%@ : %f",@"Total",price];
+                
+                UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"ADDED" message:[[recognizer holder] objectForKey:@"prodName"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
         }
 }@end
