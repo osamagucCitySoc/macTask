@@ -8,6 +8,7 @@
 
 #import "MainViewTableViewController.h"
 #import "UIView+RNActivityView.h"
+#import "UIImageView+WebCache.h"
 
 @interface MainViewTableViewController ()<NSURLConnectionDataDelegate,NSURLConnectionDelegate>
 
@@ -19,6 +20,7 @@
     NSMutableArray* productsWithCats;
     NSMutableArray* cats;
     NSURLConnection* getCatsProductsConnection;
+    NSIndexPath* expandedIndex;
 }
 
 - (void)viewDidLoad {
@@ -81,9 +83,104 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     
-    // Configure the cell...
+    NSDictionary* currentCat = [cats objectAtIndex:indexPath.row];
+    
+    [(UILabel*)[cell viewWithTag:2] setText:[currentCat objectForKey:@"catName"]];
+    
+    
+    
+    [(UIImageView*)[cell viewWithTag:1] setImageWithURL:[NSURL URLWithString:[currentCat objectForKey:@"catImage"]]];
+    
+    
+    [[cell viewWithTag:4]removeFromSuperview];
+    
+    UIScrollView* scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(8, 40, 320, 45)];
+    scrollView.tag = 4;
+    scrollView.delegate = self;
+    
+    [scrollView setBackgroundColor:[UIColor clearColor]];
+    [scrollView setCanCancelContentTouches:NO];
+    
+    scrollView.indicatorStyle = UIScrollViewIndicatorStyleBlack;
+    scrollView.clipsToBounds = NO;
+    scrollView.scrollEnabled = YES;
+    scrollView.pagingEnabled = YES;
+    
+    
+    NSMutableArray* links = [[NSMutableArray alloc]init];
+    
+    for(NSDictionary* dict in productsWithCats)
+    {
+        if([[dict objectForKey:@"catName"]isEqualToString:[currentCat objectForKey:@"catName"]])
+        {
+            [links addObject:[dict objectForKey:@"prodImage"]];
+            [links addObject:[dict objectForKey:@"prodImage"]];
+            [links addObject:[dict objectForKey:@"prodImage"]];
+            [links addObject:[dict objectForKey:@"prodImage"]];
+            [links addObject:[dict objectForKey:@"prodImage"]];
+            [links addObject:[dict objectForKey:@"prodImage"]];
+            [links addObject:[dict objectForKey:@"prodImage"]];
+        }
+    }
+    
+    CGFloat cx = 0;
+    
+    
+    for(int i = 0 ; i < links.count ; i++)
+    {
+        NSURL* imageToDownload = [NSURL URLWithString:[links objectAtIndex:i]];
+        
+        UIImageView *imageView = [[UIImageView alloc] init];
+        [imageView setImageWithURL:imageToDownload];
+        [imageView setUserInteractionEnabled:YES];
+        CGRect rect = imageView.frame;
+        rect.size.height = 40;
+        rect.size.width = 40;
+        rect.origin.x = cx;
+        rect.origin.y = 0;
+        
+        imageView.frame = rect;
+        
+        [scrollView addSubview:imageView];
+        
+        cx += imageView.frame.size.width+5;
+    }
+    
+    if(expandedIndex && expandedIndex == indexPath)
+    {
+        [(UIImageView*)[cell viewWithTag:3] setImage:[UIImage imageNamed:@"up.png"]];
+        [scrollView setContentSize:CGSizeMake(cx, 45)];
+        [cell addSubview:scrollView];
+    }else
+    {
+        [(UIImageView*)[cell viewWithTag:3] setImage:[UIImage imageNamed:@"down.png"]];
+        [scrollView setContentSize:CGSizeMake(cx, 0)];
+    }
+    
     
     return cell;
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(expandedIndex && expandedIndex == indexPath)
+    {
+        return 100;
+    }else
+    {
+        return 44;
+    }
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    expandedIndex = indexPath;
+    [self.tableView beginUpdates];
+    [self.tableView reloadData];
+//    [self.tableView setNeedsDisplay];
+    [self.tableView endUpdates];
 }
 
 
