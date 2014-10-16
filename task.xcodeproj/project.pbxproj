@@ -35,6 +35,7 @@
 		048BC2BA19F00CBA007563C8 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 048BC2AA19F00CBA007563C8 /* UIImageView+HighlightedWebCache.m */; };
 		048BC2BB19F00CBA007563C8 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 048BC2AC19F00CBA007563C8 /* UIImageView+WebCache.m */; };
 		048BC2BE19F016D1007563C8 /* UserDataTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 048BC2BD19F016D1007563C8 /* UserDataTapGestureRecognizer.m */; };
+		048BC2C119F025CA007563C8 /* CartTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048BC2C019F025CA007563C8 /* CartTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,8 @@
 		048BC2AC19F00CBA007563C8 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		048BC2BC19F016D1007563C8 /* UserDataTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataTapGestureRecognizer.h; sourceTree = "<group>"; };
 		048BC2BD19F016D1007563C8 /* UserDataTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDataTapGestureRecognizer.m; sourceTree = "<group>"; };
+		048BC2BF19F025CA007563C8 /* CartTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartTableViewController.h; sourceTree = "<group>"; };
+		048BC2C019F025CA007563C8 /* CartTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +156,8 @@
 				048BC25B19F00276007563C8 /* Supporting Files */,
 				048BC28119F008C6007563C8 /* MainViewTableViewController.h */,
 				048BC28219F008C6007563C8 /* MainViewTableViewController.m */,
+				048BC2BF19F025CA007563C8 /* CartTableViewController.h */,
+				048BC2C019F025CA007563C8 /* CartTableViewController.m */,
 			);
 			path = task;
 			sourceTree = "<group>";
@@ -329,6 +334,7 @@
 				048BC2AF19F00CBA007563C8 /* SDImageCache.m in Sources */,
 				048BC2BE19F016D1007563C8 /* UserDataTapGestureRecognizer.m in Sources */,
 				048BC2B319F00CBA007563C8 /* SDWebImageDownloaderOperation.m in Sources */,
+				048BC2C119F025CA007563C8 /* CartTableViewController.m in Sources */,
 				048BC26419F00276007563C8 /* ViewController.m in Sources */,
 				048BC2B619F00CBA007563C8 /* UIButton+WebCache.m in Sources */,
 				048BC2AE19F00CBA007563C8 /* NSData+ImageContentType.m in Sources */,

@@ -10,6 +10,7 @@
 #import "UIView+RNActivityView.h"
 #import "UIImageView+WebCache.h"
 #import "UserDataTapGestureRecognizer.h"
+#import "CartTableViewController.h"
 
 @interface MainViewTableViewController ()<NSURLConnectionDataDelegate,NSURLConnectionDelegate>
 
@@ -27,6 +28,18 @@
     NSIndexPath* expandedIndex;
     CGRect origianlRect;
     UIScrollView* parent;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    expandedIndex = nil;
+    [self.tableView reloadData];
+    CartTableViewController* cart = (CartTableViewController*)[segue destinationViewController];
+    
+    [cart setCart:added];
+}
+- (IBAction)showCart:(id)sender {
+    [self performSegueWithIdentifier:@"cartSeg" sender:self];
 }
 
 - (void)viewDidLoad {
@@ -320,15 +333,21 @@
         }else if(recognizer.state == UIGestureRecognizerStateChanged)
         {
             [self.view bringSubviewToFront:[recognizer view]];
+            [self.tableView bringSubviewToFront:[recognizer view]];
             CGRect origFrame = recognizer.view.frame;
-            origFrame.origin.y = location.y-100 - (expandedIndex.row*44);
+            origFrame.origin.y = location.y+44;
+            origFrame.origin.x = location.x;
            // origFrame.origin.x = location.x-30;
             [recognizer.view setFrame:origFrame];
+            
+            [[[[UIApplication sharedApplication] delegate] window] addSubview:[recognizer view]];
+            
         }else if (recognizer.state == UIGestureRecognizerStateEnded)
         {
-            [[recognizer view]setFrame:origianlRect];
             
-
+            //[[recognizer view]removeFromSuperview];
+            [[recognizer view]setFrame:origianlRect];
+            [parent addSubview:[recognizer view]];
             if(location.y >= addView.frame.origin.y && location.y <= addView.frame.origin.y+addView.frame.size.height)
             {
                 [added addObject:[recognizer holder]];
